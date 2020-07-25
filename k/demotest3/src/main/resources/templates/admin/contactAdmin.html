@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+</head>
+<body>
+<div class="container col-6">
+    <h2>Contact</h2>
+    <th:block th:include="/_menu"></th:block>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+        </tr>
+        <tr th:each="contact:${contacts}">
+            <td th:text="${contact.name}"></td><br/>
+            <td th:text="${contact.email}"></td><br/>
+            <td th:text="${contact.message}"></td><br/>
+            <td>
+                <a th:href="@{/delete?id={id}(id=${contact.id})}" class="btn btn-danger"> Delete </a>
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+</body>
+</html>

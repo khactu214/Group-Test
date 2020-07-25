@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+    <head th:replace="layout/_layoutAdmin :: head"></head>
+
+</head>
+<body>
+<nav th:replace="/_menu"></nav>
+
+<h2>Admin Page</h2>
+<h3>Welcome :
+    <span th:utext="${#request.userPrincipal.name}"></span>
+</h3>
+<b>This is protected page!</b>
+
+<br/><br/>
+
+
+<a th:href="@{/contactAdmin}">Contact</a>
+<br/>
+<a th:href="@{/product/list}">Product</a>
+
+
+</body>
+<div th:replace="layout/_layoutAdmin :: footer"></div>
+</html>

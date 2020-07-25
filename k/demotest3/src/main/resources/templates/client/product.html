@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid row mt-2">
+    <nav><th:block th:include="/_menu"></th:block></nav>
+    <main class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title float-left">
+                    List product
+                </h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr class="row">
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-2">Avatar</th>
+                        <th class="col-md-2">Name</th>
+                        <th class="col-md-2">Price</th>
+                        <th class="col-md-2">detail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="products:${products}" class="row">
+                        <td class="col-md-1" th:text="${products.id}"></td>
+                        <td class="col-md-2">
+                            <div class="rounded img-thumbnail"
+                                 th:style="'background-image:url(' + ${products.imgUrl} + '); background-size:cover; width:70px; height:70px;'">
+                            </div>
+                        </td>
+                        <td class="col-md-2 product-name" th:text="${products.name}"></td>
+                        <td class="col-md-2" th:text="${products.price}"></td>
+                        <td class="col-md-2" th:text="${products.detail}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="layout/frag :: footer"></div>
+</body>
+</html>

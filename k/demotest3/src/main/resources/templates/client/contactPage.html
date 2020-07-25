@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+</head>
+<body>
+<div class="container col-6">
+    <h2>Create new user</h2>
+    <div class="col-md-auto">
+        <form th:object="${contact}" th:action="@{save}" method="post">
+            <div>
+                <label th:text="Name" th:for="name"></label>
+                <input type="text" class="form-control" th:field="*{name}" placeholder="Name"/>
+            </div>
+            <div style="clear: both;display: block;height: 10px"></div>
+            <div>
+                <label th:text="Email" th:for="email"></label>
+                <input type="text" class="form-control" th:field="*{email}" placeholder="Email"/>
+            </div>
+            <div style="clear: both;display: block;height: 10px"></div>
+            <div>
+                <label th:text="Messages" th:for="messages"></label>
+                <input type="text" class="form-control" th:field="*{message}" placeholder="Email"/>
+            </div>
+            <div style="clear: both;display: block;height: 10px"></div>
+
+            <input type="submit" value="Save new data" class="btn btn-success">
+        </form>
+    </div>
+</div>
+</body>
+</html>
