@@ -1,31 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/admin/_lauout :: head(title='Product List')"></head>
 <body>
-<div class="container col-6">
-    <h2>Contact</h2>
-    <th:block th:include="/_menu"></th:block>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-        </tr>
-        <tr th:each="contact:${contacts}">
-            <td th:text="${contact.name}"></td><br/>
-            <td th:text="${contact.email}"></td><br/>
-            <td th:text="${contact.message}"></td><br/>
-            <td>
-                <a th:href="@{/delete?id={id}(id=${contact.id})}" class="btn btn-danger"> Delete </a>
-            </td>
-        </tr>
-    </table>
+<div th:replace="layout/admin/_lauout :: header(title='List Product')"></div>
+<div class="container-fluid row mt-2">
+    <nav th:replace="layout/admin/_lauout :: menu"></nav>
+    <main class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title float-left">
+                    Contact
+                    <small class="text-muted"> Contact </small>
+                </h3>
+                <div class="clearfix"></div>
+                <div class="alert alert-success d-none" role="alert" id="messageSuccess"></div>
+                <div class="alert alert-danger d-none" role="alert" id="messageError"></div>
+                <table class="table table-striped">
+
+                    <tr class="row">
+                        <th class="col-md-4">Name</th>
+                        <th class="col-md-2">Email</th>
+                        <th class="col-md-2">Message</th>
+                        <th class="col-md-2">Action</th>
+                    </tr>
 
 
+                    <tr th:each="contact:${contacts}">
+                        <td class="col-md-4" th:text="${contact.name}"></td>
+                        <td class="col-md-2" th:text="${contact.email}"></td>
+                        <td class="col-md-2" th:text="${contact.message}"></td>
+                        <td class="col-md-2">
+                            <a th:href="@{/delete?id={id}(id=${contact.id})}" class="btn btn-danger"> Delete </a>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </main>
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure want to delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var currentProductId;
+    $('.btn-delete-product').click(function () {
+        var tr = $(this).closest('tr');
+        currentProductId = tr.attr('id').replace('product-', '');
+        var pname = tr.find('.product-name').text();
+        $('#modalBody').text(pname);
+        $('#exampleModal').modal('show');
+    });
+
+    $('#btnDelete').click(function () {
+        $.ajax({
+            url: '/endpoint/product/delete/' + currentProductId,
+            type: 'DELETE',
+            success: function (resp) {
+                $('#product-' + currentProductId).remove();
+                $('#messageSuccess').text('Action success!');
+                $('#messageSuccess').removeClass('d-none');
+                $('#exampleModal').modal('hide');
+            },
+            error: function () {
+                $('#messageError').text('Action fails! Please try again later!');
+                $('#messageError').removeClass('d-none');
+                $('#exampleModal').modal('hide');
+            }
+        });
+    });
+
+    $('#checkAllList').click(function () {
+        $('.check-item').prop('checked', $(this).is(':checked'));
+    });
+
+    $('#btnApply').click(function () {
+        switch ($('#actionSelectAll').val()) {
+            case '0':
+                alert('Please choose an action.');
+                break;
+            case '1':
+                deleteMany();
+                break;
+            case '2':
+                alert('Building function.');
+                break;
+        }
+    });
+
+    function deleteMany() {
+        var ids = [];
+        $('.check-item:checked').each(function (index) {
+            ids.push($(this).val());
+        });
+        if (ids.length == 0) {
+            alert('Please choose at least 1 product.');
+            return;
+        }
+        $.ajax({
+            url: '/endpoint/product/delete-many',
+            type: 'DELETE',
+            data: {
+                ids: ids.join(',')
+            },
+            success: function () {
+                alert(1);
+            },
+            error: function () {
+                alert(2);
+            }
+        });
+    }
+
+</script>
+<div th:replace="layout/admin/_lauout :: footer"></div>
 </body>
 </html>
