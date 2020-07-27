@@ -8,11 +8,12 @@
 <div class="container col-6">
     <h2>Contact</h2>
     <th:block th:include="/_menu"></th:block>
-    <table>
+    <table border="1">
         <tr>
-            <th>Name</th>
+            <th> Name</th>
             <th>Email</th>
             <th>Message</th>
+            <th> # </th>
         </tr>
         <tr th:each="contact:${contacts}">
             <td th:text="${contact.name}"></td><br/>
