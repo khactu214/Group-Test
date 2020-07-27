@@ -1,27 +1,15 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:utext="${title}"></title>
-    <head th:replace="layout/_layoutAdmin :: head"></head>
-
-</head>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/admin/_lauout :: head(title='Product List')"></head>
 <body>
-<nav th:replace="/_menu"></nav>
+<div th:replace="layout/admin/_lauout :: header(title='List Product')"></div>
+<div class="container-fluid row mt-2">
+    <nav th:replace="layout/admin/_lauout :: menu"></nav>
 
-<h2>Admin Page</h2>
-<h3>Welcome :
-    <span th:utext="${#request.userPrincipal.name}"></span>
-</h3>
-<b>This is protected page!</b>
+    <h2> Welcome  </h2>
 
-<br/><br/>
-
-
-<a th:href="@{/contactAdmin}">Contact</a>
-<br/>
-<a th:href="@{/product/list}">Product</a>
-
-
+</div>
+<div th:replace="layout/frag :: footer"></div>
 </body>
-<div th:replace="layout/_layoutAdmin :: footer"></div>
 </html>
+

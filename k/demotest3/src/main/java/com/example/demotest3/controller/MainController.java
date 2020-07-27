@@ -19,7 +19,7 @@ public class MainController {
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
-        return "client/welcomePage";
+      return "client/welcomePage";
     }
 
 
