@@ -6,7 +6,8 @@
 </head>
 <body>
 <div class="container col-6">
-    <h2>Create new user</h2>
+    <nav><th:block th:include="/_menu"></th:block></nav>
+    <h2>Contact</h2>
     <div class="col-md-auto">
         <form th:object="${contact}" th:action="@{save}" method="post">
             <div>
