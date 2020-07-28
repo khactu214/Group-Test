@@ -6,7 +6,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" src="../static/css.css">
+    <link rel="stylesheet" src="../static/css.css" th:href="@{(/css.css)}"/>
 
 
 </head>
@@ -15,6 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 login-sec">
+                <p th:if="${param.error}" class="error">Invalid email or password</p>
                 <h2 class="text-center">Login Now</h2>
                 <form class="login-form" name='f' th:action="@{/j_spring_security_check}" method='POST'>
                     <div class="form-group">

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
+    <title th:utext="${title}"></title>
+    <head th:replace="layout/client/_menu :: head(title='contact Page')"></head>
 </head>
+<div th:replace="layout/client/_menu :: header(title='contact Page')"></div>
 <body>
 <div class="container col-6">
-    <nav><th:block th:include="/_menu"></th:block></nav>
     <h2>Contact</h2>
     <div class="col-md-auto">
         <form th:object="${contact}" th:action="@{save}" method="post">
@@ -26,7 +26,7 @@
             </div>
             <div style="clear: both;display: block;height: 10px"></div>
 
-            <input type="submit" value="Save new data" class="btn btn-success">
+            <input type="submit" value="SEND" class="btn btn-success">
         </form>
     </div>
 </div>

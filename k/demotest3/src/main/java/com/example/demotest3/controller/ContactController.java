@@ -15,7 +15,7 @@ import java.util.List;
 public class ContactController {
 
     @Autowired
-    ContactRepository contactRepository;
+    private ContactRepository contactRepository;
 
     @RequestMapping(value = { "/contact"}, method = RequestMethod.GET)
     public String contactPage(Model model) {
